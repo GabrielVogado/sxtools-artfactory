@@ -32,7 +32,7 @@ class CanalServiceImplTest {
     }
 
     @Test
-    void listaCanais_DeveRetornarListaVazia_QuandoNaoExistemCanais() {
+    void testeListaVazia() {
         when(canalRepository.findAll()).thenReturn(new ArrayList<>());
 
         List<CanalResponse> result = canalServiceImpl.listaCanais();
@@ -42,7 +42,7 @@ class CanalServiceImplTest {
     }
 
     @Test
-    void listaCanais_DeveRetornarListaDeCanais_QuandoExistemCanais() {
+    void testBuscaListaPreenchida() {
 
         List<Canal> canais = new ArrayList<>();
         canais.add(getEntityCanal());
@@ -56,7 +56,7 @@ class CanalServiceImplTest {
     }
 
     @Test
-    void getCanalId_DeveRetornarCanal_QuandoExisteId() {
+    void getCanalIdInexistente() {
         Integer id = 1;
         when(canalRepository.getReferenceById(id)).thenReturn(getEntityCanal());
 
@@ -67,14 +67,14 @@ class CanalServiceImplTest {
     }
 
     @Test
-    void insereCanal_DeveRetornarCanalResponse_ComOsDadosInseridos() {
+    void testInsereCanal() {
         when(canalRepository.save(any())).thenReturn(getEntityCanal());
         CanalResponse result = canalServiceImpl.insereCanal(getRequestCanal());
         assertNotNull(result);
     }
 
     @Test
-    void alteraCanal_DeveRetornarOptionalVazio_QuandoCanalNaoExiste() {
+    void testeAlteraCanalInexiustente() {
         Integer id = 1;
         when(canalRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -86,7 +86,7 @@ class CanalServiceImplTest {
     }
 
     @Test
-    void alteraCanal_DeveRetornarOptionalComCanalResponse_QuandoCanalExiste() {
+    void testeAlteraCanalExistente() {
         Integer id = 1;
         Canal canal = getEntityCanal();
         when(canalRepository.findById(id)).thenReturn(Optional.of(canal));
@@ -100,7 +100,7 @@ class CanalServiceImplTest {
     }
 
     @Test
-    void excluirCanal_DeveChamarDeleteById_QuandoIdValido() {
+    void testExcluirCanalValido() {
         Integer id = 1;
         canalServiceImpl.excluirCanal(id);
         verify(canalRepository, times(1)).deleteById(id);
