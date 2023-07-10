@@ -1,8 +1,8 @@
-package com.sxtools.sxtoolscanal.document;
+package com.sxtools.sxtoolscanal.config;
 
 import com.sxtools.sxtoolscanal.entity.Canal;
-import com.sxtools.sxtoolscanal.request.CanalRequest;
-import com.sxtools.sxtoolscanal.response.CanalResponse;
+import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
+import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

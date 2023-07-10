@@ -1,4 +1,4 @@
-package com.sxtools.sxtoolscanal.request;
+package com.sxtools.sxtoolscanal.dto.response;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CanalRequest {
+public class CanalResponse {
 
 
     private String nomeCanal;

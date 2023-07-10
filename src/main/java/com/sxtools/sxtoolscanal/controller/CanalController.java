@@ -1,9 +1,9 @@
 package com.sxtools.sxtoolscanal.controller;
 
-import com.sxtools.sxtoolscanal.document.CanalDocument;
-import com.sxtools.sxtoolscanal.iservice.ICanalService;
-import com.sxtools.sxtoolscanal.request.CanalRequest;
-import com.sxtools.sxtoolscanal.response.CanalResponse;
+import com.sxtools.sxtoolscanal.config.CanalDocument;
+import com.sxtools.sxtoolscanal.service.CanalService;
+import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
+import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +17,10 @@ import java.util.Optional;
 @RequestMapping("/canal")
 public class CanalController implements CanalDocument {
 
-    private final ICanalService canalService;
+    private final CanalService canalService;
 
     @Autowired
-    public CanalController(ICanalService canalService) {
+    public CanalController(CanalService canalService) {
         this.canalService = canalService;
     }
 

@@ -2,36 +2,40 @@ package com.sxtools.sxtoolscanal.service;
 
 import com.sxtools.sxtoolscanal.entity.Canal;
 import com.sxtools.sxtoolscanal.repository.CanalRepository;
-import com.sxtools.sxtoolscanal.request.CanalRequest;
-import com.sxtools.sxtoolscanal.response.CanalResponse;
+import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
+import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
+import com.sxtools.sxtoolscanal.service.impl.CanalServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.sxtools.sxtoolscanal.dto.CanalTypeModelDto.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class CanalServiceTest {
+class CanalServiceImplTest {
 
     @Mock
     private CanalRepository canalRepository;
 
-    private CanalService canalService;
+    private CanalServiceImpl canalServiceImpl;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        canalService = new CanalService(canalRepository);
+        canalServiceImpl = new CanalServiceImpl(canalRepository);
     }
 
     @Test
     void listaCanais_DeveRetornarListaVazia_QuandoNaoExistemCanais() {
         when(canalRepository.findAll()).thenReturn(new ArrayList<>());
 
-        List<CanalResponse> result = canalService.listaCanais();
+        List<CanalResponse> result = canalServiceImpl.listaCanais();
 
         assertTrue(result.isEmpty());
         verify(canalRepository, times(1)).findAll();
@@ -41,10 +45,10 @@ class CanalServiceTest {
     void listaCanais_DeveRetornarListaDeCanais_QuandoExistemCanais() {
 
         List<Canal> canais = new ArrayList<>();
-        canais.add(new Canal());
+        canais.add(getEntityCanal());
         when(canalRepository.findAll()).thenReturn(canais);
 
-        List<CanalResponse> result = canalService.listaCanais();
+        List<CanalResponse> result = canalServiceImpl.listaCanais();
 
         assertFalse(result.isEmpty());
         assertEquals(canais.size(), result.size());
@@ -54,10 +58,9 @@ class CanalServiceTest {
     @Test
     void getCanalId_DeveRetornarCanal_QuandoExisteId() {
         Integer id = 1;
-        Canal canal = new Canal();
-        when(canalRepository.getReferenceById(id)).thenReturn(canal);
+        when(canalRepository.getReferenceById(id)).thenReturn(getEntityCanal());
 
-        CanalResponse result = canalService.getCanalId(id);
+        CanalResponse result = canalServiceImpl.getCanalId(id);
 
         assertNotNull(result);
         verify(canalRepository, times(1)).getReferenceById(id);
@@ -65,20 +68,17 @@ class CanalServiceTest {
 
     @Test
     void insereCanal_DeveRetornarCanalResponse_ComOsDadosInseridos() {
-        CanalRequest request = new CanalRequest();
-
-        CanalResponse result = canalService.insereCanal(request);
-
+        when(canalRepository.save(any())).thenReturn(getEntityCanal());
+        CanalResponse result = canalServiceImpl.insereCanal(getRequestCanal());
         assertNotNull(result);
     }
 
     @Test
     void alteraCanal_DeveRetornarOptionalVazio_QuandoCanalNaoExiste() {
         Integer id = 1;
-        CanalRequest request = new CanalRequest();
         when(canalRepository.findById(id)).thenReturn(Optional.empty());
 
-        Optional<CanalResponse> result = canalService.alteraCanal(request, id);
+        Optional<CanalResponse> result = canalServiceImpl.alteraCanal(getRequestCanal(), id);
 
         assertTrue(result.isEmpty());
         verify(canalRepository, times(1)).findById(id);
@@ -88,12 +88,11 @@ class CanalServiceTest {
     @Test
     void alteraCanal_DeveRetornarOptionalComCanalResponse_QuandoCanalExiste() {
         Integer id = 1;
-        CanalRequest request = new CanalRequest();
-        Canal canal = new Canal();
+        Canal canal = getEntityCanal();
         when(canalRepository.findById(id)).thenReturn(Optional.of(canal));
-        when(canalRepository.save(canal)).thenReturn(canal);
+        when(canalRepository.save(any())).thenReturn(canal);
 
-        Optional<CanalResponse> result = canalService.alteraCanal(request, id);
+        Optional<CanalResponse> result = canalServiceImpl.alteraCanal(getRequestCanal(), id);
 
         assertTrue(result.isPresent());
         verify(canalRepository, times(1)).findById(id);
@@ -102,9 +101,8 @@ class CanalServiceTest {
 
     @Test
     void excluirCanal_DeveChamarDeleteById_QuandoIdValido() {
-
         Integer id = 1;
-        canalService.excluirCanal(id);
+        canalServiceImpl.excluirCanal(id);
         verify(canalRepository, times(1)).deleteById(id);
     }
 }
