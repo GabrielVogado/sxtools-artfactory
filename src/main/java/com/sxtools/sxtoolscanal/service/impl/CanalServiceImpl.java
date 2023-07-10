@@ -1,11 +1,10 @@
 package com.sxtools.sxtoolscanal.service.impl;
 
-import com.sxtools.sxtoolscanal.entity.Canal;
-import com.sxtools.sxtoolscanal.service.CanalService;
-import com.sxtools.sxtoolscanal.repository.CanalRepository;
 import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
 import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
-import com.sxtools.sxtoolscanal.service.mapper.CanalMapper;
+import com.sxtools.sxtoolscanal.entity.Canal;
+import com.sxtools.sxtoolscanal.repository.CanalRepository;
+import com.sxtools.sxtoolscanal.service.CanalService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,8 @@
 package com.sxtools.sxtoolscanal.service;
 
+import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
 import com.sxtools.sxtoolscanal.entity.Canal;
 import com.sxtools.sxtoolscanal.repository.CanalRepository;
-import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
-import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
 import com.sxtools.sxtoolscanal.service.impl.CanalServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.sxtools.sxtoolscanal.dto.CanalTypeModelDto.*;
+import static com.sxtools.sxtoolscanal.dto.CanalTypeModelDto.getEntityCanal;
+import static com.sxtools.sxtoolscanal.dto.CanalTypeModelDto.getRequestCanal;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
