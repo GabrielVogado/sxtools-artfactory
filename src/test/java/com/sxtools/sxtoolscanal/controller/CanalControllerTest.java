@@ -103,4 +103,11 @@ public class CanalControllerTest {
         verify(canalService, times(1)).alteraCanal(request, id);
     }
 
+    @Test
+    public void testExcluirCanal() {
+        Integer canalId = 1;
+        canalController.excluirCanal(canalId);
+        verify(canalService).excluirCanal(canalId);
+    }
+
 }
