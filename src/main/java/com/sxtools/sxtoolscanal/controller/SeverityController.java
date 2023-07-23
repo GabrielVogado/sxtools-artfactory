@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/severity")
+@RequestMapping("/severities")
 public class SeverityController implements SeverityDocument {
 
     private final SeverityService severityService;
@@ -29,7 +29,7 @@ public class SeverityController implements SeverityDocument {
      * @return
      */
     @Override
-    @GetMapping("/severities")
+    @GetMapping
     public ResponseEntity<List<SeverityResponse>> listSeverities() {
         List<SeverityResponse> severityResponseList = severityService.listaSeverities();
         if(!severityResponseList.isEmpty()){
@@ -43,7 +43,7 @@ public class SeverityController implements SeverityDocument {
      * @return
      */
     @Override
-    @GetMapping("/getseverityId/{severity_id}")
+    @GetMapping("/{severity_id}")
     public ResponseEntity<SeverityResponse> getSeverityId(@PathVariable(name = "severity_id") Integer id) {
 
         SeverityResponse response = severityService.getSeverityId(id);
@@ -59,7 +59,7 @@ public class SeverityController implements SeverityDocument {
      * @return
      */
     @Override
-    @PostMapping("/insert-severity")
+    @PostMapping
     public ResponseEntity<SeverityResponse> insereSeverity(@RequestBody SeverityRequest severityRequest) {
         SeverityResponse response = severityService.insereSeverity(severityRequest);
         if (!ObjectUtils.isEmpty(response)) {
@@ -74,7 +74,7 @@ public class SeverityController implements SeverityDocument {
      * @return
      */
     @Override
-    @PutMapping("/altera-severity/{severity_id}")
+    @PutMapping("/{severity_id}")
     public ResponseEntity<Optional<SeverityResponse>> alteraSeverity(@RequestBody SeverityRequest severityRequest, @PathVariable(name = "severity_id") Integer id) {
 
         Optional<SeverityResponse> response = severityService.alteraSeverity(severityRequest,id);
