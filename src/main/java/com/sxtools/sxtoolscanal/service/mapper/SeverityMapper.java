@@ -24,10 +24,10 @@ public class SeverityMapper {
                 .hrSlaSeveridade(severityRequest.getHour())
                 .nomeSeveridade(severityRequest.getName())
                 .dsSeveridade(severityRequest.getDescription())
-                .cdUltimaAtualizacao(severityRequest.getUpdateDate())
-                .cdUsuarioInclusao(severityRequest.getCreateUser())
-                .dhInclusao(LocalDateTime.parse(severityRequest.getCreateDate()))
-                .dhUltimaAtualizacao(LocalDateTime.parse(severityRequest.getUpdateDate()))
+                .cdUltimaAtualizacao(null)
+                .cdUsuarioInclusao(null)
+                .dhInclusao(null)
+                .dhUltimaAtualizacao(null)
                 .build();
     }
 }
