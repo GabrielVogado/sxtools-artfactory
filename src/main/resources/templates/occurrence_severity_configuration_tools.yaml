@@ -1,0 +1,784 @@
+openapi: 3.0.1
+info:
+  title: Configuration Severity Occurrence Tools
+  description: Service for configuring the severity of occurrences of the Tools service platform
+  contact:
+    name: Roberto Reboucas de Melo
+    email: roberto.melo@f1rst.com.br
+  version: 1.0.0
+servers:
+  - url: /occurrence_severity_configuration_tools/v1
+tags:
+  - name: severity-controller
+    description: Severity Controller
+paths:
+  '/severities':
+    post:
+      description: Create a new severity
+      summary: Create a new severity
+      tags:
+        - severity-controller
+      requestBody:
+        $ref: '#/components/requestBodies/CreateSeverity'
+      responses:
+        201:
+          $ref: '#/components/responses/CreateSeverityCreated'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        406:
+          $ref: '#/components/responses/NotAcceptable'
+        415:
+          $ref: '#/components/responses/UnsupportedMediaType'
+        422:
+          $ref: '#/components/responses/UnprocessableEntity'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - InternalToken: []
+    get:
+      description: List severity by filter
+      summary: List severity by filter
+      tags:
+        - severity-controller
+      parameters:
+        - $ref: '#/components/parameters/LimitTemplate'
+        - $ref: '#/components/parameters/OffsetTemplate'
+        - $ref: '#/components/parameters/SortTemplate'
+        - $ref: '#/components/parameters/SelectTemplate'
+        - $ref: '#/components/parameters/ExpandTemplate'
+      responses:
+        200:
+          $ref: '#/components/responses/ListSeverityOk'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        406:
+          $ref: '#/components/responses/NotAcceptable'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - InternalToken: []
+  '/severities/{severity_id}':
+    get:
+      description: Get an severity by id
+      summary: Get an severity by id
+      tags:
+        - severity-controller
+      parameters:
+        - $ref: '#/components/parameters/GetSeverityId'
+      responses:
+        200:
+          $ref: '#/components/responses/GetSeverityOk'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        406:
+          $ref: '#/components/responses/NotAcceptable'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - InternalToken: []
+    put:
+      description: Replace all severity data using request body information
+      summary: Update an severity data
+      tags:
+        - severity-controller
+      parameters:
+        - $ref: '#/components/parameters/UpdateSeverityId'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateSeverity'
+      responses:
+        204:
+          $ref: '#/components/responses/NoContent'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        406:
+          $ref: '#/components/responses/NotAcceptable'
+        415:
+          $ref: '#/components/responses/UnsupportedMediaType'
+        422:
+          $ref: '#/components/responses/UnprocessableEntity'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - InternalToken: []
+components:
+  requestBodies:
+    CreateSeverity:
+      description: Create request body
+      content:
+        application/json:
+          schema:
+              $ref: '#/components/schemas/SeverityPartial'
+    UpdateSeverity:
+      description: Update request body
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/SeverityPartial'
+  responses:
+    NoContent:
+      description: No Content
+    UnsupportedMediaType:
+      description: Unsupported Media Type
+    NotAcceptable:
+      description: Not Acceptable
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+          examples:
+            SeverityWrongFormat:
+              summary: Severity wrong format
+              value:
+                '_errorCode': 4000
+                '_message': 'Validation Error'
+                '_details': 'Error while validating input data.'
+                '_timestamp': '2021-02-11T21:41:43.286Z'
+                '_traceId': '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+                '_errors':
+                  - '_code': 10
+                    '_field': 'severityId'
+                    '_message': 'Must follow this pattern: ^[(t|T|x|X)]\d{6}$'
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+          examples:
+            ContentIdNotFound:
+              summary: Content id not found
+              value:
+                '_errorCode': 4040
+                '_message': 'Not Found Error'
+                '_details': 'Resource not found.'
+                '_timestamp': '2021-02-11T21:41:43.286Z'
+                '_traceId': '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+                '_errors':
+                  - '_code': 13
+                    '_field': 'severityId'
+                    '_message': 'Severity with id 404 not found'
+    UnprocessableEntity:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+          examples:
+            CannotCreateSeverity:
+              summary: Cannot create severity
+              value:
+                '_errorCode': 4221
+                '_message': 'Validation Error'
+                '_details': 'Error while validating business rule.'
+                '_timestamp': '2021-02-11T21:41:43.286Z'
+                '_traceId': '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+                '_errors':
+                  - '_code': 11
+                    '_field': 'severity'
+                    '_message': 'You cannot create this severity'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorTemplate'
+          examples:
+            InternalServerError:
+              summary: Internal server error
+              value:
+                '_errorCode': 5000
+                '_message': 'Internal Server Error'
+                '_details': 'An internal server error occurred while performing this action. Contact the Administrator.'
+                '_timestamp': '2021-02-11T21:41:43.286Z'
+                '_traceId': '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+    CreateSeverityCreated:
+      description: Created
+      content:
+        application/json:
+          examples:
+            Created:
+              summary: Successfully creation
+              value:
+                id: 1
+                createDate: '2022-06-14 12:25:34.732'
+      headers:
+        Location:
+          $ref: '#/components/headers/Location'
+    ListSeverityOk:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PageableSeverity'
+          examples:
+            Found:
+              summary: Successfully found
+              value:
+                '_pageable':
+                  '_limit': 2
+                  '_offset': 0
+                  '_pageNumber': 0
+                  '_pageElements': 1
+                  '_totalPages': 8
+                  '_totalElements': 15
+                '_content':
+                  - 'severityId': '1'
+                    'name': 'Alta'
+                    'description': 'Severidade Alta'
+                    'active': true
+                    'hour': 01
+                    'tenantId': 1489
+                    'groupId': 14
+                    'createDate': '2022-06-14 12:25:34.732'
+                    'createUser': 't791046'
+                    'updateDate': '2022-06-14 12:25:34.732'
+                    'updateUser': 't791046'
+                  - 'severityId': '2'
+                    'name': 'Baixa'
+                    'description': 'Severidade Baixa'
+                    'active': false
+                    'hour': 48
+                    'tenantId': 1489
+                    'groupId': 14
+                    'createDate': '2022-06-14 12:25:34.732'
+                    'createUser': 't791046'
+                    'updateDate': '2022-06-14 12:25:34.732'
+                    'updateUser': 't791046'
+    GetSeverityOk:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SeverityBase'
+  parameters:
+    LimitTemplate:
+      name: '_limit'
+      in: query
+      description: Number of records to be returned
+      x-santander-dictionary-entity: LimitParameterTemplate
+      required: false
+      schema:
+        $ref: '#/components/schemas/LimitTypeTemplate'
+      examples:
+        200-Found:
+          summary: Successfully found
+          value: 2
+        400-WrongExpandAttribute:
+          summary: Wrong expand attribute
+          value: 2
+        500-InternalServerError:
+          summary: Internal server error
+          value: 10
+    OffsetTemplate:
+      name: '_offset'
+      in: query
+      description: Number of records to be skipped
+      x-santander-dictionary-entity: OffsetParameterTemplate
+      required: false
+      schema:
+        $ref: '#/components/schemas/OffsetTypeTemplate'
+      examples:
+        200-Found:
+          summary: Successfully found
+          value: 0
+        400-WrongExpandAttribute:
+          summary: Wrong expand attribute
+          value: 0
+        500-InternalServerError:
+          summary: Internal server error
+          value: 50
+    SortTemplate:
+      name: '_sort'
+      in: query
+      description: Sort the result
+      x-santander-dictionary-entity: SortParameterTemplate
+      required: false
+      style: form
+      explode: false
+      allowReserved: true
+      schema:
+        $ref: '#/components/schemas/SortTypeTemplate'
+      examples:
+        200-Found:
+          summary: Successfully found
+          value: [channel]
+        400-WrongExpandAttribute:
+          summary: Wrong expand attribute
+          value: [channel]
+        500-InternalServerError:
+          summary: Internal server error
+          value: [channel]
+    SelectTemplate:
+      name: '_select'
+      in: query
+      description: Attributes to be returned
+      x-santander-dictionary-entity: SelectParameterTemplate
+      required: false
+      style: form
+      explode: false
+      allowReserved: true
+      schema:
+        $ref: '#/components/schemas/SelectTypeTemplate'
+      examples:
+        200-Found:
+          summary: Successfully found
+          value: [channel]
+        400-WrongExpandAttribute:
+          summary: Wrong expand attribute
+          value: [channel]
+        500-InternalServerError:
+          summary: Internal server error
+          value: [channel]
+    ExpandTemplate:
+      name: '_expand'
+      in: query
+      description: Expand attributes to be returned
+      x-santander-dictionary-entity: ExpandParameterTemplate
+      required: false
+      style: form
+      explode: false
+      allowReserved: true
+      schema:
+        $ref: '#/components/schemas/ExpandTypeTemplate'
+      examples:
+        200-Found:
+          summary: Successfully found
+          value: []
+        400-WrongExpandAttribute:
+          summary: Wrong expand attribute
+          value: [channel]
+        500-InternalServerError:
+          summary: Internal server error
+          value: []
+    SearchTemplate:
+      name: '_q'
+      in: query
+      description: 'Query must follow this pattern: <attribute>:<value> and can be joined by AND or OR operations. You can use the * in value to represent any char sequence.'
+      x-santander-dictionary-entity: SearchParameterTemplate
+      required: true
+      schema:
+        $ref: '#/components/schemas/SearchTypeTemplate'
+      examples:
+        200-Found:
+          summary: Successfully found
+          value: name:Jose*
+        400-WrongExpandAttribute:
+          summary: Wrong expand attribute
+          value: name:Jose*
+        500-InternalServerError:
+          summary: Internal server error
+          value: name:Jose*
+    GetSeverityId:
+      name: severity_id
+      in: path
+      required: true
+      description: Severity unique id
+      schema:
+        $ref: '#/components/schemas/SeverityIdType'
+      examples:
+        200-Found:
+          summary: Successfully found
+          value: '1'
+        400-WrongSeverityIdFormat:
+          summary: Wrong severity id format
+          value: a
+        404-SeverityIdNotFound:
+          summary: Severity id not found
+          value: 404
+        500-InternalServerError:
+          summary: Internal server error
+          value: 500
+    UpdateSeverityId:
+      name: severity_id
+      in: path
+      required: true
+      description: Severity unique id
+      schema:
+        $ref: '#/components/schemas/SeverityIdType'
+      examples:
+        204:
+          summary: Successfully updated
+          value: '1'
+        400-WrongSeverityIdFormat:
+          summary: Wrong severity id format
+          value: a
+        404-SeverityIdNotFound:
+          summary: Severity id not found
+          value: 404
+        409-UpdateConflict:
+          summary: Update conflict
+          value: 409
+        422-UpdateImpossible:
+          summary: Update impossible
+          value: 422
+        500-InternalServerError:
+          summary: Internal server error
+          value: 500
+  headers:
+    Location:
+      description: The URI to the resource
+      x-santander-dictionary-entity: LocationHeaderTemplate
+      required: true
+      schema:
+        type: string
+        format: uri
+    Accept-Charset:
+      description: 'The header advertises which encoding the client is able to understand, like utf-8, iso-8859-1.'
+      x-santander-dictionary-entity: AcceptCharsetHeaderTemplate
+      required: false
+      schema:
+        type: string
+        default: utf-8
+    Accept-Language:
+      description: 'The header advertises which languages the client is able to understand, like pt-BR, en-US, fr, de.'
+      x-santander-dictionary-entity: AcceptLanguageHeaderTemplate
+      required: false
+      schema:
+        type: string
+        default: pt-BR
+  schemas:
+    ErrorTemplate:
+      description: Error Data. You must not return sensible data here. In order to accept multiple languages, request Accept-Language header parameter.
+      x-santander-dictionary-entity: ErrorTemplate
+      type: object
+      properties:
+        '_errorCode':
+          type: integer
+          minimum: 0
+          description: Error code
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        '_message':
+          type: string
+          description: Error message
+          maxLength: 30
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        '_details':
+          type: string
+          description: Error detail message.
+          maxLength: 100
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        '_timestamp':
+          type: string
+          description: Date and time when it happens
+          format: date-time
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        '_traceId':
+          type: string
+          description: Data received in x-traceId header parameter or generated uuid, if not received
+          format: uuid
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        '_errors':
+          type: array
+          description: Additional information about error
+          items:
+            type: object
+            properties:
+              '_code':
+                type: integer
+                description: Specific error code
+                minimum: 0
+                x-santander-security-cdo-level: internal
+                x-santander-security-encrypt-type: normal
+              '_field':
+                type: string
+                description: Field name related with error
+                maxLength: 50
+                x-santander-security-cdo-level: internal
+                x-santander-security-encrypt-type: normal
+              '_message':
+                type: string
+                description: Field name related with error
+                maxLength: 100
+                x-santander-security-cdo-level: internal
+                x-santander-security-encrypt-type: normal
+            required:
+              - '_message'
+      required:
+        - '_errorCode'
+        - '_message'
+        - '_details'
+        - '_timestamp'
+        - '_traceId'
+    PageableTemplate:
+      description: Pageable template
+      x-santander-dictionary-entity: PageableTemplate
+      type: object
+      properties:
+        '_pageable':
+          type: object
+          properties:
+            '_limit':
+              type: integer
+              minimum: 1
+              maximum: 50
+              description: Number of items per page.
+              exclusiveMinimum: false
+              x-santander-security-cdo-level: internal
+              x-santander-security-encrypt-type: normal
+            '_offset':
+              type: integer
+              minimum: 0
+              description: Number of records skipped.
+              exclusiveMinimum: false
+              x-santander-security-cdo-level: internal
+              x-santander-security-encrypt-type: normal
+            '_pageNumber':
+              type: integer
+              minimum: 0
+              description: Actual page number starting with zero.
+              exclusiveMinimum: false
+              x-santander-security-cdo-level: internal
+              x-santander-security-encrypt-type: normal
+            '_pageElements':
+              type: integer
+              minimum: 0
+              description: Number of elements returned in this page.
+              exclusiveMinimum: false
+              x-santander-security-cdo-level: internal
+              x-santander-security-encrypt-type: normal
+            '_totalPages':
+              type: integer
+              minimum: 1
+              description: Total number of pages starting with one.
+              exclusiveMinimum: false
+              x-santander-security-cdo-level: internal
+              x-santander-security-encrypt-type: normal
+            '_totalElements':
+              type: integer
+              minimum: 0
+              description: Total number of elements.
+              exclusiveMinimum: false
+              x-santander-security-cdo-level: internal
+              x-santander-security-encrypt-type: normal
+          required:
+            - '_limit'
+            - '_offset'
+            - '_pageNumber'
+            - '_pageElements'
+            - '_totalPages'
+            - '_totalElements'
+        '_content':
+          type: array
+          minItems: 0
+          items:
+            type: object #you must specilize it
+      required:
+        - '_pageable'
+        - '_content'
+    LimitTypeTemplate:
+      description: Number of records to be returned
+      x-santander-dictionary-entity: LimitTypeTemplate
+      type: integer
+      minimum: 1
+      exclusiveMinimum: false
+      maximum: 50
+      default: 10
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    OffsetTypeTemplate:
+      description: Number of records to be skipped
+      x-santander-dictionary-entity: OffsetTypeTemplate
+      type: integer
+      minimum: 0
+      exclusiveMinimum: false
+      default: 0
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    SortTypeTemplate:
+      description: Sort the result
+      x-santander-dictionary-entity: SortTypeTemplate
+      type: array
+      uniqueItems: true
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+      maxItems: 2
+      items:
+        type: string
+        pattern: ^(\+|\-)([a-zA-Z]+)(\.([a-zA-Z]+))*(.\*)?$
+    SelectTypeTemplate:
+      description: Attributes to be returned
+      x-santander-dictionary-entity: SelectTypeTemplate
+      type: array
+      uniqueItems: true
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+      items:
+        type: string
+        pattern: ^([a-zA-Z]+)(\.([a-zA-Z]+))*(.\*)?$
+    ExpandTypeTemplate:
+      description: Expand attributes to be returned
+      x-santander-dictionary-entity: ExpandTypeTemplate
+      type: array
+      uniqueItems: true
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+      maxItems: 5
+      items:
+        type: string
+        pattern: ^([a-zA-Z]+)(\.([a-zA-Z]+))*$
+    SearchTypeTemplate:
+      description: 'Query must follow this pattern: <attribute>:<value> and can be joined by AND or OR operations. You can use the * in value to represent any char sequence.'
+      x-santander-dictionary-entity: SearchTypeTemplate
+      type: string
+      minLength: 1
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    PageableSeverity:
+      description: Pageable Severity
+      allOf:
+        - $ref: '#/components/schemas/PageableTemplate'
+        - type: object
+          properties:
+            '_content':
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/SeverityBase'
+                  - type: object
+      required:
+        - '_pageable'
+        - '_content'
+    SeverityIdType:
+      description: Severity unique id.
+      type: string
+      x-santander-security-cdo-level: internal
+      x-santander-security-encrypt-type: normal
+    SeverityBase:
+      description: Severity base data model
+      x-santander-dictionary-entity: Severity
+      type: object
+      properties:
+        severityId:
+          type: integer
+          format: int32
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        name:
+          type: string
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        description:
+          type: string
+          nullable: true
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        active:
+          type: boolean
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        hour:
+          type: integer
+          format: int32
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        tenantId:
+          type: integer
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        groupId:
+          type: integer
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        createDate:
+          type: string
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        createUser:
+          type: string
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        updateDate:
+          type: string
+          nullable: true
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        updateUser:
+          type: string
+          nullable: true
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+    SeverityPartial:
+      description: Severity partial data model
+      x-santander-dictionary-entity: Severity
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        description:
+          type: string
+          nullable: true
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        active:
+          type: boolean
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        hour:
+          type: integer
+          format: int32
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        tenantId:
+          type: integer
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+        groupId:
+          type: integer
+          nullable: false
+          x-santander-security-cdo-level: internal
+          x-santander-security-encrypt-type: normal
+  securitySchemes:
+    InternalToken:
+      description: JWT token for internal new api consumption.
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso74-custom-admin-iam-dev.azure.paas.santanderbr.dev.corp/auth/
+          refreshUrl:  https://sso74-custom-admin-iam-dev.azure.paas.santanderbr.dev.corp/auth/
+          scopes: {}
