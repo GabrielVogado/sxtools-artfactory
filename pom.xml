@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.sxtools</groupId>
-    <artifactId>sxtools-canal</artifactId>
+    <artifactId>sxtools-artfactory</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>sxtools-canal</name>
-    <description>sxtools-canal</description>
+    <name>sxtools-artfactory</name>
+    <description>sxtools-artfactory</description>
     <properties>
         <java.version>11</java.version>
     </properties>
