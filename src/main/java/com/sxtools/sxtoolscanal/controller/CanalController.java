@@ -1,9 +1,10 @@
 package com.sxtools.sxtoolscanal.controller;
 
 import com.sxtools.sxtoolscanal.config.CanalDocument;
-import com.sxtools.sxtoolscanal.service.CanalService;
 import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
 import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
+import com.sxtools.sxtoolscanal.service.CanalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,8 +60,8 @@ public class CanalController implements CanalDocument {
      */
     @Override
     @PostMapping("/insert-canal")
-    public ResponseEntity<CanalResponse> insereCanal(@RequestBody CanalRequest canalRequest) {
-        CanalResponse response = canalService.insereCanal(canalRequest);
+    public ResponseEntity<DtoResponse> insereCanal(@RequestBody CanalRequest canalRequest) {
+        DtoResponse response = canalService.insereCanal(canalRequest);
         if (!ObjectUtils.isEmpty(response)) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }

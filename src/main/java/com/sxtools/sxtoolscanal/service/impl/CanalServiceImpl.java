@@ -2,6 +2,7 @@ package com.sxtools.sxtoolscanal.service.impl;
 
 import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
 import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.entity.Canal;
 import com.sxtools.sxtoolscanal.repository.CanalRepository;
 import com.sxtools.sxtoolscanal.service.CanalService;
@@ -13,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.sxtools.sxtoolscanal.service.mapper.CanalMapper.convertEntityToDto;
-import static com.sxtools.sxtoolscanal.service.mapper.CanalMapper.convertRequestToEntity;
+import static com.sxtools.sxtoolscanal.service.mapper.CanalMapper.*;
 
 @Service
 public class CanalServiceImpl implements CanalService {
@@ -56,9 +56,11 @@ public class CanalServiceImpl implements CanalService {
      * @return
      */
     @Override
-    public CanalResponse insereCanal(CanalRequest canalRequest) {
+    public DtoResponse insereCanal(CanalRequest canalRequest) {
         Canal canal = convertRequestToEntity(canalRequest);
-        return convertEntityToDto(canalRepository.save(canal));
+        var response = canalRepository.save(canal);
+
+        return convertEntityToDtoResponse(response);
     }
 
     /**

@@ -2,6 +2,7 @@ package com.sxtools.sxtoolscanal.controller;
 
 import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
 import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.service.CanalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.sxtools.sxtoolscanal.dto.CanalTypeModelDto.getRequestCanal;
-import static com.sxtools.sxtoolscanal.dto.CanalTypeModelDto.getResponseCanal;
+import static com.sxtools.sxtoolscanal.dto.CanalTypeModelDto.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -67,9 +67,9 @@ public class CanalControllerTest {
     public void testInsereCanal() {
 
         CanalRequest request = getRequestCanal();
-        CanalResponse response = getResponseCanal();
+        DtoResponse response = getResponseCanalDto();
         Mockito.when(canalService.insereCanal(request)).thenReturn(response);
-        CanalResponse resultado = canalController.insereCanal(request).getBody();
+        DtoResponse resultado = canalController.insereCanal(request).getBody();
         assertEquals(response, resultado);
     }
 

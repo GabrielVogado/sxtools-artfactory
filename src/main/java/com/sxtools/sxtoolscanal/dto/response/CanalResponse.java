@@ -2,8 +2,6 @@ package com.sxtools.sxtoolscanal.dto.response;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Builder
 @Getter
 @Setter
@@ -11,18 +9,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CanalResponse {
 
-
-    private String nomeCanal;
-
-    private Boolean canalAtivo;
-
-    private String descricaoCanal;
-
-    private LocalDateTime dhInclusao;
-
-    private String cdUsuarioInclusao;
-
-    private LocalDateTime dhUltimaAtualizacao;
-
-    private String cdUltimaAtualizacao;
+    public Integer channelId;
+    public String name;
+    public String description;
+    public Boolean active;
+    public Integer tenantId;
+    public Integer groupId;
+    public String createDate;
+    public String createUser;
+    public String updateDate;
+    public String updateUser;
 }

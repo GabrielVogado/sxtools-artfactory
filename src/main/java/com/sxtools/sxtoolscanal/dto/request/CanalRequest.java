@@ -2,8 +2,6 @@ package com.sxtools.sxtoolscanal.dto.request;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Builder
 @Getter
 @Setter
@@ -11,18 +9,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CanalRequest {
 
-
-    private String nomeCanal;
-
-    private Boolean canalAtivo;
-
-    private String descricaoCanal;
-
-    private LocalDateTime dhInclusao;
-
-    private String cdUsuarioInclusao;
-
-    private LocalDateTime dhUltimaAtualizacao;
-
-    private String cdUltimaAtualizacao;
+    public String name;
+    public String description;
+    public boolean active;
+    public int tenantId;
+    public int groupId;
 }

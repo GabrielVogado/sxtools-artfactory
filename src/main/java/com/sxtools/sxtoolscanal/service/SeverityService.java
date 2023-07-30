@@ -1,6 +1,7 @@
 package com.sxtools.sxtoolscanal.service;
 
 import com.sxtools.sxtoolscanal.dto.request.SeverityRequest;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.dto.response.SeverityResponse;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface SeverityService {
 
     SeverityResponse getSeverityId(Integer id);
 
-    SeverityResponse insereSeverity(SeverityRequest severityRequest);
+    DtoResponse insereSeverity(SeverityRequest severityRequest);
 
     Optional<SeverityResponse> alteraSeverity(SeverityRequest severityRequest, Integer id);
 }

@@ -2,8 +2,8 @@ package com.sxtools.sxtoolscanal.controller;
 
 import com.sxtools.sxtoolscanal.config.SeverityDocument;
 import com.sxtools.sxtoolscanal.dto.request.SeverityRequest;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.dto.response.SeverityResponse;
-
 import com.sxtools.sxtoolscanal.service.SeverityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,8 +60,8 @@ public class SeverityController implements SeverityDocument {
      */
     @Override
     @PostMapping
-    public ResponseEntity<SeverityResponse> insereSeverity(@RequestBody SeverityRequest severityRequest) {
-        SeverityResponse response = severityService.insereSeverity(severityRequest);
+    public ResponseEntity<DtoResponse> insereSeverity(@RequestBody SeverityRequest severityRequest) {
+        DtoResponse response = severityService.insereSeverity(severityRequest);
         if (!ObjectUtils.isEmpty(response)) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }

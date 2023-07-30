@@ -2,6 +2,7 @@ package com.sxtools.sxtoolscanal.service;
 
 import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
 import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public interface CanalService {
 
     CanalResponse getCanalId(Integer id);
 
-    CanalResponse insereCanal(CanalRequest canalRequest);
+    DtoResponse insereCanal(CanalRequest canalRequest);
 
     Optional<CanalResponse> alteraCanal(CanalRequest canalRequest, Integer id);
 

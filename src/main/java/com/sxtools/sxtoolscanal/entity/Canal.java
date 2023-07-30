@@ -46,4 +46,15 @@ public class Canal implements Serializable {
 
     @Column(name = "CD_TENANT")
     private Integer cdTenant;
+
+    @PrePersist
+    public void prePersist() {
+        dhInclusao = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        dhUltimaAtualizacao = LocalDateTime.now();
+    }
+
 }

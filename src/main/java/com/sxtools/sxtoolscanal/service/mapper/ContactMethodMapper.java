@@ -1,9 +1,9 @@
 package com.sxtools.sxtoolscanal.service.mapper;
 
-import com.sxtools.sxtoolscanal.dto.response.ContactMethodResponse;
 import com.sxtools.sxtoolscanal.dto.request.ContactMethodRequest;
+import com.sxtools.sxtoolscanal.dto.response.ContactMethodResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.entity.ContactMethod;
-import com.sxtools.sxtoolscanal.entity.Severity;
 
 public class ContactMethodMapper {
 
@@ -17,7 +17,7 @@ public class ContactMethodMapper {
     }
 
     public static ContactMethod convertRequestToEntity(ContactMethodRequest contactMethodRequest) {
-        return ContactMethod .builder()
+        return ContactMethod.builder()
                 .skMethodContact(null)
                 .nmMethodContact(contactMethodRequest.getName())
                 .dsMethodContact(contactMethodRequest.getDescription())
@@ -26,5 +26,12 @@ public class ContactMethodMapper {
                 .dhInclusao(null)
                 .dhUltimaAtualizacao(null)
                 .build();
+    }
+
+    public static DtoResponse convertEntityToDtoResponse(ContactMethod contactMethod) {
+
+        return DtoResponse.builder()
+                .id(contactMethod.getSkMethodContact())
+                .createDate(String.valueOf(contactMethod.getDhInclusao())).build();
     }
 }

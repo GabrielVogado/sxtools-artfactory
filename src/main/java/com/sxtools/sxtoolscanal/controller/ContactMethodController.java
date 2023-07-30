@@ -1,8 +1,9 @@
 package com.sxtools.sxtoolscanal.controller;
 
 import com.sxtools.sxtoolscanal.config.ContactMethodDocument;
-import com.sxtools.sxtoolscanal.dto.response.ContactMethodResponse;
 import com.sxtools.sxtoolscanal.dto.request.ContactMethodRequest;
+import com.sxtools.sxtoolscanal.dto.response.ContactMethodResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.service.ContactMethodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,8 +61,8 @@ public class ContactMethodController implements ContactMethodDocument {
      */
     @Override
     @PostMapping
-    public ResponseEntity<ContactMethodResponse> insereContactMethod(@RequestBody ContactMethodRequest contactMethodRequest) {
-        ContactMethodResponse response = contactMethodService.insereContactMethod(contactMethodRequest);
+    public ResponseEntity<DtoResponse> insereContactMethod(@RequestBody ContactMethodRequest contactMethodRequest) {
+        DtoResponse response = contactMethodService.insereContactMethod(contactMethodRequest);
         if (!ObjectUtils.isEmpty(response)) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }

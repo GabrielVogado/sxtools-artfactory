@@ -2,6 +2,7 @@ package com.sxtools.sxtoolscanal.config;
 
 
 import com.sxtools.sxtoolscanal.dto.request.SeverityRequest;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.dto.response.SeverityResponse;
 import com.sxtools.sxtoolscanal.entity.Severity;
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,9 +69,8 @@ public interface SeverityDocument {
                     schema = @Schema(implementation = Severity.class))}),
 
             @ApiResponse(responseCode = "400", content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Severity.class))})})
-
-    ResponseEntity<SeverityResponse> insereSeverity(SeverityRequest severityRequest);
+                    schema = @Schema(implementation = Severity.class))})})
+    ResponseEntity<DtoResponse> insereSeverity(SeverityRequest severityRequest);
 
     @Operation(summary = "Replace all severity data using request body information")
     @ApiResponses(value = {

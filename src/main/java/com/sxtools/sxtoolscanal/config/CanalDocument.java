@@ -1,8 +1,9 @@
 package com.sxtools.sxtoolscanal.config;
 
-import com.sxtools.sxtoolscanal.entity.Canal;
 import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
 import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
+import com.sxtools.sxtoolscanal.entity.Canal;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -40,7 +41,7 @@ public interface CanalDocument {
                             schema = @Schema(implementation = Canal.class))}),
             @ApiResponse(responseCode = "400", description = "Erro ao Cadastrar Canal",
                     content = @Content)})
-    ResponseEntity<CanalResponse> insereCanal(CanalRequest canalRequest);
+    ResponseEntity<DtoResponse> insereCanal(CanalRequest canalRequest);
 
     @Operation(summary = "Altera Um Canal")
     @ApiResponses(value = {

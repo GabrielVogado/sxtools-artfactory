@@ -2,6 +2,7 @@ package com.sxtools.sxtoolscanal.service.impl;
 
 import com.sxtools.sxtoolscanal.dto.request.ContactMethodRequest;
 import com.sxtools.sxtoolscanal.dto.response.ContactMethodResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.entity.ContactMethod;
 import com.sxtools.sxtoolscanal.repository.ContactMethodRepository;
 import com.sxtools.sxtoolscanal.service.ContactMethodService;
@@ -13,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.sxtools.sxtoolscanal.service.mapper.ContactMethodMapper.convertEntityToDto;
-import static com.sxtools.sxtoolscanal.service.mapper.ContactMethodMapper.convertRequestToEntity;
+import static com.sxtools.sxtoolscanal.service.mapper.ContactMethodMapper.*;
 
 
 @Service
@@ -58,9 +58,9 @@ public class ContactMethodServiceImpl implements ContactMethodService {
      * @return
      */
     @Override
-    public ContactMethodResponse insereContactMethod(ContactMethodRequest contactMethodRequest) {
+    public DtoResponse insereContactMethod(ContactMethodRequest contactMethodRequest) {
         ContactMethod contactMethod = convertRequestToEntity(contactMethodRequest);
-        return convertEntityToDto(contactMethodRepository.save(contactMethod));
+        return convertEntityToDtoResponse(contactMethodRepository.save(contactMethod));
     }
 
     /**

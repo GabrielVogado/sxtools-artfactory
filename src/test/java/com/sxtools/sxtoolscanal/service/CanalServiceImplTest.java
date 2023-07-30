@@ -1,6 +1,7 @@
 package com.sxtools.sxtoolscanal.service;
 
 import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.entity.Canal;
 import com.sxtools.sxtoolscanal.repository.CanalRepository;
 import com.sxtools.sxtoolscanal.service.impl.CanalServiceImpl;
@@ -69,7 +70,7 @@ class CanalServiceImplTest {
     @Test
     void testInsereCanal() {
         when(canalRepository.save(any())).thenReturn(getEntityCanal());
-        CanalResponse result = canalServiceImpl.insereCanal(getRequestCanal());
+        DtoResponse result = canalServiceImpl.insereCanal(getRequestCanal());
         assertNotNull(result);
     }
 

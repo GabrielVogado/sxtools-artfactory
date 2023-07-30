@@ -1,12 +1,11 @@
 package com.sxtools.sxtoolscanal.service.impl;
 
 import com.sxtools.sxtoolscanal.dto.request.SeverityRequest;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.dto.response.SeverityResponse;
-import com.sxtools.sxtoolscanal.entity.Canal;
 import com.sxtools.sxtoolscanal.entity.Severity;
 import com.sxtools.sxtoolscanal.repository.SeverityRepository;
 import com.sxtools.sxtoolscanal.service.SeverityService;
-import com.sxtools.sxtoolscanal.service.mapper.CanalMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.sxtools.sxtoolscanal.service.mapper.SeverityMapper.convertEntityToDto;
-import static com.sxtools.sxtoolscanal.service.mapper.SeverityMapper.convertRequestToEntity;
+import static com.sxtools.sxtoolscanal.service.mapper.SeverityMapper.*;
 
 
 @Service
@@ -58,9 +56,9 @@ public class SeverityServiceImpl implements SeverityService {
      * @return
      */
     @Override
-    public SeverityResponse insereSeverity(SeverityRequest severityRequest) {
+    public DtoResponse insereSeverity(SeverityRequest severityRequest) {
         Severity severity = convertRequestToEntity(severityRequest);
-        return convertEntityToDto(severityRepository.save(severity));
+        return convertEntityToDtoResponse(severityRepository.save(severity));
     }
 
     /**

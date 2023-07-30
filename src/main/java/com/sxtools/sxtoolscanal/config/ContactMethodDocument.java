@@ -1,8 +1,9 @@
 package com.sxtools.sxtoolscanal.config;
 
 
-import com.sxtools.sxtoolscanal.dto.response.ContactMethodResponse;
 import com.sxtools.sxtoolscanal.dto.request.ContactMethodRequest;
+import com.sxtools.sxtoolscanal.dto.response.ContactMethodResponse;
+import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
 import com.sxtools.sxtoolscanal.entity.ContactMethod;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -68,9 +69,8 @@ public interface ContactMethodDocument {
                     schema = @Schema(implementation = ContactMethod.class))}),
 
             @ApiResponse(responseCode = "400", content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ContactMethod.class))})})
-
-    ResponseEntity<ContactMethodResponse> insereContactMethod(ContactMethodRequest contactMethodRequest);
+                    schema = @Schema(implementation = ContactMethod.class))})})
+    ResponseEntity<DtoResponse> insereContactMethod(ContactMethodRequest contactMethodRequest);
 
     @Operation(summary = "Replace all ContactMethod data using request body information")
     @ApiResponses(value = {
