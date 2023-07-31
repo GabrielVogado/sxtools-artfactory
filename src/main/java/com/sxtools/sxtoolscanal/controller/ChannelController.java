@@ -1,10 +1,10 @@
 package com.sxtools.sxtoolscanal.controller;
 
-import com.sxtools.sxtoolscanal.config.CanalDocument;
-import com.sxtools.sxtoolscanal.dto.request.CanalRequest;
-import com.sxtools.sxtoolscanal.dto.response.CanalResponse;
+import com.sxtools.sxtoolscanal.config.ChannelDocument;
+import com.sxtools.sxtoolscanal.dto.request.ChannelRequest;
+import com.sxtools.sxtoolscanal.dto.response.ChannelResponse;
 import com.sxtools.sxtoolscanal.dto.response.DtoResponse;
-import com.sxtools.sxtoolscanal.service.CanalService;
+import com.sxtools.sxtoolscanal.service.ChannelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/canal")
-public class CanalController implements CanalDocument {
+public class ChannelController implements ChannelDocument {
 
-    private final CanalService canalService;
+    private final ChannelService channelService;
 
     @Autowired
-    public CanalController(CanalService canalService) {
-        this.canalService = canalService;
+    public ChannelController(ChannelService channelService) {
+        this.channelService = channelService;
     }
 
     /**
@@ -30,12 +30,12 @@ public class CanalController implements CanalDocument {
      */
     @Override
     @GetMapping("/list-canals")
-    public ResponseEntity<List<CanalResponse>> listaCanais() {
-        List<CanalResponse> canalResponseList = canalService.listaCanais();
-        if(!canalResponseList.isEmpty()){
-            return  ResponseEntity.status(HttpStatus.OK).body(canalResponseList);
+    public ResponseEntity<List<ChannelResponse>> listaCanais() {
+        List<ChannelResponse> channelResponseList = channelService.listaCanais();
+        if (!channelResponseList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(channelResponseList);
         }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(canalResponseList);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(channelResponseList);
     }
 
     /**
@@ -44,24 +44,24 @@ public class CanalController implements CanalDocument {
      */
     @Override
     @GetMapping("/getCanalId")
-    public ResponseEntity<CanalResponse> getCanalId(@PathVariable Integer id) {
+    public ResponseEntity<ChannelResponse> getCanalId(@PathVariable Integer id) {
 
-        CanalResponse response = canalService.getCanalId(id);
+        ChannelResponse response = channelService.getCanalId(id);
 
-        if (!ObjectUtils.isEmpty(response)){
+        if (!ObjectUtils.isEmpty(response)) {
             ResponseEntity.status(HttpStatus.OK).body(response);
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
     }
 
     /**
-     * @param canalRequest
+     * @param channelRequest
      * @return
      */
     @Override
     @PostMapping("/insert-canal")
-    public ResponseEntity<DtoResponse> insereCanal(@RequestBody CanalRequest canalRequest) {
-        DtoResponse response = canalService.insereCanal(canalRequest);
+    public ResponseEntity<DtoResponse> insereCanal(@RequestBody ChannelRequest channelRequest) {
+        DtoResponse response = channelService.insereCanal(channelRequest);
         if (!ObjectUtils.isEmpty(response)) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
@@ -69,15 +69,15 @@ public class CanalController implements CanalDocument {
     }
 
     /**
-     * @param canalRequest
+     * @param channelRequest
      * @param id
      * @return
      */
     @Override
     @PutMapping("/altera-canal")
-    public ResponseEntity<Optional<CanalResponse>> alteraCanal(@RequestBody CanalRequest canalRequest, Integer id) {
+    public ResponseEntity<Optional<ChannelResponse>> alteraCanal(@RequestBody ChannelRequest channelRequest, Integer id) {
 
-        Optional<CanalResponse> response = canalService.alteraCanal(canalRequest,id);
+        Optional<ChannelResponse> response = channelService.alteraCanal(channelRequest, id);
         if (!ObjectUtils.isEmpty(response)) {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
@@ -90,6 +90,6 @@ public class CanalController implements CanalDocument {
     @Override
     @DeleteMapping("/delete-canal")
     public void excluirCanal(@PathVariable Integer id) {
-        canalService.excluirCanal(id);
+        channelService.excluirCanal(id);
     }
 }

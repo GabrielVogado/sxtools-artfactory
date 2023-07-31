@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CanalRequest {
+public class ChannelRequest {
 
     public String name;
     public String description;

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "CANAL")
-public class Canal implements Serializable {
+public class Channel implements Serializable {
 
     @Id
     @Column(name = "SK_CANAL")
