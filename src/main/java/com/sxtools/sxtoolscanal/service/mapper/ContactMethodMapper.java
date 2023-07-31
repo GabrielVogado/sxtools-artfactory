@@ -10,21 +10,21 @@ public class ContactMethodMapper {
     public static ContactMethodResponse convertEntityToDto(ContactMethod contactMethod) {
 
         return ContactMethodResponse.builder()
-                .name(contactMethod.getNmMethodContact())
-                .description(String.valueOf(contactMethod.getDsMethodContact()))
                 .active(contactMethod.getInMethodContact())
+                .name(contactMethod.getNmMethodContact())
+                .description(contactMethod.getDsMethodContact())
+                .updateDate(String.valueOf(contactMethod.getDhUltimaAtualizacao()))
+                .createDate(String.valueOf(contactMethod.getDhInclusao()))
+                .createUser(contactMethod.getCdUsuarioInclusao())
+                .updateUser(contactMethod.getCdUltimaAtualizacao())
                 .build();
     }
 
     public static ContactMethod convertRequestToEntity(ContactMethodRequest contactMethodRequest) {
         return ContactMethod.builder()
-                .skMethodContact(null)
+                .inMethodContact(contactMethodRequest.isActive())
                 .nmMethodContact(contactMethodRequest.getName())
                 .dsMethodContact(contactMethodRequest.getDescription())
-                .cdUltimaAtualizacao(null)
-                .cdUsuarioInclusao(null)
-                .dhInclusao(null)
-                .dhUltimaAtualizacao(null)
                 .build();
     }
 
